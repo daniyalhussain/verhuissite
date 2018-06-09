@@ -1,0 +1,53 @@
+.homepage-head
+  .jumbotron.jumbotron-fluid
+    .container
+      h1.display-3 Verhuizen?
+      h3 Wij helpen uw met het zoeken van de beste verhuizers
+      = bootstrap_form_tag url: '/aanvraag' do |f| 
+        = f.text_field :adressa, placeholder: "Van Adress", hide_label: true
+        = f.text_field :adressb, placeholder: "Naar Adress", hide_label: true
+        = f.submit "Vergelijk"
+
+.uitleg
+  .container
+    h2 Hoe werkt het?
+    .row
+      .col-sm-12.col-md-4
+        h3 
+          span 1
+          | Vul gegevens in
+        p 
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      .col-sm-12.col-md-4
+        h3 
+          span 2
+          | Vul gegevens in
+        p 
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris      
+      .col-sm-12.col-md-4
+        h3 
+          span 3
+          | Vul gegevens in
+        p 
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+
+          
+script type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBA4n3x9gc-fq6TktX_g_7UShmpITRpdLk&libraries=places&sensor=false"
+javascript:
+  google.maps.event.addDomListener(window, 'load', initialize);
+    function initialize() {
+      var inputa = document.getElementById('adressa');
+      var autocompletea = new google.maps.places.Autocomplete(inputa);
+      
+      var inputb = document.getElementById('adressb');
+      var autocompleteb = new google.maps.places.Autocomplete(inputb);
+      
+      autocompletea.addListener('place_changed', function () {
+        var place = autocompletea.getPlace();
+      });
+      
+      autocompleteb.addListener('place_changed', function () {
+        var place = autocompleteb.getPlace();
+      });
+  }
+  

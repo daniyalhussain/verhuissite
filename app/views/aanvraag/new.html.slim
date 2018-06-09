@@ -1,0 +1,17 @@
+.load-bar
+  .fill style="width: 10%"
+  
+.gegevens-box
+  .container
+    .col-12.col-md-6
+      h1 Vanaf waar verhuist uw?
+      = bootstrap_form_for(:adresa, url: 'aanvraag/1') do |f| 
+        .postcode-regel
+          = f.text_field :postcode_a, label: "Postcode", value: @aanvraag.postcode_a, placeholder: "vb. 1234 AB", required: true
+        .huisnummer-regel
+          = f.text_field :huisnummer_a, label: "Huisnummer", value: @aanvraag.huisnummer_a, placeholder: "vb. 1", required: true
+          
+        = f.text_field :adres_a, label: "Straatnaam", value: @aanvraag.adres_a, placeholder: "vb. Janstraat", required: true
+        = f.text_field :plaats_a, label: "Plaats", value: @aanvraag.plaats_a, placeholder: "vb. Den Haag", required: true
+        .submitknop
+          = f.submit "Next"

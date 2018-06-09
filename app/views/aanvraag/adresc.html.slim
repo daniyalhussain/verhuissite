@@ -1,0 +1,47 @@
+.load-bar
+  .fill style="width: 25%"
+    
+.gegevens-box
+  .container
+    .col-12.col-md-6
+      h1 Heeft u een tussenadres nodig?
+      = bootstrap_form_for(:adresc, url: '/aanvraag/3', html: { novalidate: true, id: "tussenadresform" }) do |f| 
+        - if !@aanvraag.tussenadres
+          = f.radio_button :tussenadres, "0", checked: true, label: "Nee"
+          = f.radio_button :tussenadres, "1", label: "Ja"
+        - else 
+          = f.radio_button :tussenadres, "0", label: "Nee"
+          = f.radio_button :tussenadres, "1", checked: true, label: "Ja"
+        .adres-c
+          .postcode-regel
+            = f.text_field :postcode_c, label: "Postcode", value: @aanvraag.postcode_c, placeholder: "vb. 1234 AB", required: true
+          .huisnummer-regel
+            = f.text_field :huisnummer_c, label: "Huisnummer", value: @aanvraag.huisnummer_c, placeholder: "vb. 1", required: true  
+          = f.text_field :adres_c, label: "Straatnaam", value: @aanvraag.adres_c, placeholder: "vb. Janstraat", required: true
+          = f.text_field :plaats_c, label: "Plaats", value: @aanvraag.plaats_c, placeholder: "vb. Den Haag", required: true  
+          
+        i.fa.fa-long-arrow-left.terugknop aria-hidden="true" 
+          = link_to 'Terug', url_for('/aanvraag/1') 
+        .submitknop
+          = f.submit "Next"
+
+javascript:
+  if($('#adresc_tussenadres_1').is(':checked')) {
+    $('.adres-c').show();
+    $("#tussenadresform").removeAttr("novalidate");
+  } else {
+  
+    $('.adres-c').hide();
+    $("#tussenadresform").attr("novalidate", "novalidate");
+  }
+
+  $('#adresc_tussenadres_1').click(function() {
+    $('.adres-c').show();
+    $("#tussenadresform").removeAttr("novalidate");
+  });
+
+  $('#adresc_tussenadres_0').click(function() {
+    $('.adres-c').hide();
+    $("#tussenadresform").attr("novalidate", "novalidate");
+  });
+              

@@ -1,0 +1,39 @@
+nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
+  button.navbar-toggler.navbar-toggler-right aria-controls="navbarSupportedContent" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarSupportedContent" data-toggle="collapse" type="button" 
+    span.navbar-toggler-icon
+  a.navbar-brand href="/"  Logo
+  #navbarSupportedContent.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto
+      li.nav-item.active
+        a.nav-link href="/" 
+          | Home
+          span.sr-only (current)
+      li.nav-item
+        a.nav-link href="#"
+          | Hoe werkt het?
+      li.nav-item
+        a.nav-link href="#"
+          | verhuisbedrijf aanmelden
+    
+javascript:
+  
+  var checkscroll = function(){
+    var scroll = $(window).scrollTop();
+    
+    if(scroll > 90){
+      $(".navbar").css('position', 'fixed');
+    } else {
+      $(".navbar").css('position', 'absolute');
+    }
+  }
+  
+  $(function() {
+    checkscroll();
+    $(window).scroll(function() {
+      checkscroll();
+    });
+    
+    $(window).resize(function() {
+      checkscroll();
+    });
+  });

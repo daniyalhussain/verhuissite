@@ -1,0 +1,63 @@
+.load-bar
+  .fill style="width: 35%"
+
+.gegevens-box
+  .container
+    .col-12.col-md-6
+      h1 Hoe wil je jouw spullen inventariseren?
+      = bootstrap_form_for(:inventarisatie, url: '/aanvraag/4') do |f| 
+        b Wat voor type verhuizing gaat het om?
+        - if @aanvraag.typeverhuizing == "Hele inboedel"
+          = f.radio_button :typeverhuizing, "Enkele Meubels", label: "Enkele meubels", required: true
+          = f.radio_button :typeverhuizing, "Hele inboedel", label: "Hele inboedel", required: true, checked: true
+        - else
+          = f.radio_button :typeverhuizing, "Enkele Meubels", label: "Enkele meubels", required: true, checked: true
+          = f.radio_button :typeverhuizing, "Hele inboedel", label: "Hele inboedel", required: true
+        
+        .afspraak-inventarisatie
+          b Hoe wil je inventariseren?
+          - if @aanvraag.typeinventarisatie == "online inventariseren"
+            = f.radio_button :typeinventarisatie, "online inventariseren", checked: true, label: "Online inventariseren"
+            = f.radio_button :typeinventarisatie, "op afspraak", label: "Op afspraak"
+          - else
+            = f.radio_button :typeinventarisatie, "online inventariseren", label: "Online inventariseren"
+            = f.radio_button :typeinventarisatie, "op afspraak", label: "Op afspraak", checked: true
+          
+          b Type verhuizer
+          = f.radio_button :typeverhuizer, "Budget", :checked => true, label: "Budget verhuizer"
+          = f.radio_button :typeverhuizer, "A", label: "A+ verhuizer"
+          
+        i.fa.fa-long-arrow-left.terugknop aria-hidden="true" 
+          = link_to 'Terug', url_for('/aanvraag/2') 
+        .submitknop
+          = f.submit "Next"
+          
+javascript:
+  if($('#inventarisatie_typeverhuizing_hele_inboedel').is(':checked')) {
+    $('.afspraak-inventarisatie').show();
+  }
+  
+  if($('#inventarisatie_typeinventarisatie_op_afspraak').is(':checked')) {
+    $('#inventarisatie_typeverhuizer_budget').attr('disabled',true);
+    $('#inventarisatie_typeverhuizer_a').prop('checked', true);
+  }
+
+  $('#inventarisatie_typeverhuizing_hele_inboedel').click(function() {
+    $('.afspraak-inventarisatie').show();
+  });
+  
+  $('#inventarisatie_typeverhuizing_enkele_meubels').click(function() {
+    $('.afspraak-inventarisatie').hide();
+  });
+  
+  $('#inventarisatie_typeinventarisatie_online_inventariseren').click(function() {
+    $('#inventarisatie_typeverhuizer_budget').attr('disabled',false);
+  });
+  
+  $('#inventarisatie_typeinventarisatie_op_afspraak').click(function() {
+    $('#inventarisatie_typeverhuizer_budget').attr('disabled',true);
+    $('#inventarisatie_typeverhuizer_a').prop('checked', true);
+
+  });
+  
+  

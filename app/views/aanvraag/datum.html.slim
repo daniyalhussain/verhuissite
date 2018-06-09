@@ -1,0 +1,19 @@
+.load-bar
+  .fill style="width: 60%"
+
+.gegevens-box
+  .container
+    .col-12.col-md-6
+      h1 Verhuisdatum
+      = bootstrap_form_for(:verhuisdatum, url: '/aanvraag/5') do |f| 
+        b Ik verhuis tussen
+        = f.date_field :datumvan, hide_label: true, required: true, value: @aanvraag.datumvan, min: Date.today
+        b en
+        = f.date_field :datumtot, hide_label: true, required: true, value: @aanvraag.datumtot, min: Date.today, format: '%d/%m/%Y'
+
+          
+        i.fa.fa-long-arrow-left.terugknop aria-hidden="true" 
+          = link_to 'Terug', url_for('/aanvraag/3') 
+        .submitknop
+          = f.submit "Next"
+          

@@ -1,0 +1,37 @@
+.load-bar
+  .fill style="width: 70%"
+
+script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js" 
+link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" rel="stylesheet" /
+
+
+.gegevens-box
+  .container
+    .col-12.col-md-6
+      h3 
+        = @aanvraag.adres_a
+        | &nbsp; 
+        = @aanvraag.huisnummer_a 
+        |  (Huidige adres)
+        
+      = bootstrap_form_for(:typewoninga, url: '/aanvraag/6') do |f| 
+        b Type woning
+        = f.select :typewoning_a, [["Rijtjeshuis"], ["Vrijstaand huis"], ["2 onder 1 klap"], ["Appartement"], ["Studio"], ["Flat"], ["Opslag"], ["Bedrijfspand"], ["Eengezinswoning"]], hide_label: true
+        
+        b Op welke verdieping bevindt jou huis?
+        = f.select :verdiepingen_a, [["Begane grond"], ["1e verdieping"], ["2e verdieping"], ["3e verdieping"],["4e verdieping"],["> 5 verdieping"]], { hide_label:true },
+          {:multiple => true}
+
+        b Interne lift aanwezig en bruikbaar?
+        = f.radio_button :internelift_a, "0", label: "Nee", required: true, checked: true
+        = f.radio_button :internelift_a, "1", label: "Ja", required: true
+        
+        i.fa.fa-long-arrow-left.terugknop aria-hidden="true" 
+          = link_to 'Terug', url_for('/aanvraag/4') 
+        .submitknop
+          = f.submit "Next"
+
+javascript:
+  $('#typewoninga_verdiepingen_a').multiselect({
+    nonSelectedText: 'Selecteer verdiepingen'
+  });
